@@ -1,1 +1,1 @@
-web: gunicorn drf.wsgi --log-file -
+web: gunicorn drf.wsgi
