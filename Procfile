@@ -1,1 +1,1 @@
-web: gunicorn drf.wsgi
+web: gunicorn myapi.wsgi
