@@ -33,7 +33,7 @@ SECRET_KEY = get_env_variable('DJANGO_SECRET')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
