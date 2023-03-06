@@ -33,9 +33,9 @@ SECRET_KEY = get_env_variable('DJANGO_SECRET')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['port-0-drf-quiz-6g2lleww4j2b.sel3.cloudtype.app']
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
