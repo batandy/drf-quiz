@@ -22,7 +22,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-j)(u!)ti$ohfi=m^_kl$!k4y%&mn&+*mrmcb&r$5%u78_3+!x$')
+def get_env_variable(var_name):
+    try:
+        return os.environ[var_name]
+    except KeyError:
+        error_msg = 'Set the {} environment variable'.format(var_name)
+        raise ImproperlyConfigured(error_msg)
+
+SECRET_KEY = get_env_variable('DJANGO_SECRET')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -77,6 +85,8 @@ WSGI_APPLICATION = 'myapi.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+
+
 
 DATABASES = {
     'default': {
