@@ -42,7 +42,7 @@ CORS_ALLOW_CREDENTIALS = True
 CSRF_COOKIE_SECURE = False
 SECURE_SSL_REDIRECT = False
 CSRF_COOKIE_DOMAIN = 'port-0-drf-quiz-6g2lleww4j2b.sel3.cloudtype.app'
-CSRF_TRUSTED_ORIGINS = ['port-0-drf-quiz-6g2lleww4j2b.sel3.cloudtype.app']
+CSRF_TRUSTED_ORIGINS = ['https://port-0-drf-quiz-6g2lleww4j2b.sel3.cloudtype.app']
 
 # Application definition
 
