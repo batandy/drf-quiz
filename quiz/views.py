@@ -18,12 +18,12 @@ def helloApi(request):
 @api_view(['GET'])
 def quiz_detail(request, quiz_id):
     try:
-        quiz = Quiz.objects.get(quiz_id=quiz_id)
+        questions = Question.objects.get(quiz_id=quiz_id)
     except Quiz.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        serializer = QuizSerializer(quiz)
+        serializer = QuestionSerializer(questions)
         return Response(serializer.data)
     
 @api_view(['GET'])
