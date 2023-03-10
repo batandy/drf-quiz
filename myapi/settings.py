@@ -22,16 +22,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# def get_env_variable(var_name):
-#     try:
-#         return os.environ[var_name]
-#     except KeyError:
-#         error_msg = 'Set the {} environment variable'.format(var_name)
-#         raise ImproperlyConfigured(error_msg)
+def get_env_variable(var_name):
+    try:
+        return os.environ[var_name]
+    except KeyError:
+        error_msg = 'Set the {} environment variable'.format(var_name)
+        raise ImproperlyConfigured(error_msg)
 
-# SECRET_KEY = get_env_variable('DJANGO_SECRET')
+SECRET_KEY = get_env_variable('DJANGO_SECRET')
 
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-j)(u!)ti$ohfi=m^_kl$!k4y%&mn&+*mrmcb&r$5%u78_3+!x$')
+# SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-j)(u!)ti$ohfi=m^_kl$!k4y%&mn&+*mrmcb&r$5%u78_3+!x$')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -61,14 +61,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    # 'django.middleware.security.SecurityMiddleware',
-    # 'django.contrib.sessions.middleware.SessionMiddleware',
-    # 'django.middleware.common.CommonMiddleware',
-    # 'django.middleware.csrf.CsrfViewMiddleware',
-    # 'django.contrib.auth.middleware.AuthenticationMiddleware',
-    # 'django.contrib.messages.middleware.MessageMiddleware',
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'corsheaders.middleware.CorsMiddleware', ## 이거 추가!! 위치 중요!!!
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -108,8 +100,17 @@ WSGI_APPLICATION = 'myapi.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': get_env_variable('DATABASE'),
+        'USER': get_env_variable('DB_USER'),
+        'PASSWORD': get_env_variable('DB_PASSWORD'),
+        'HOST': get_env_variable('DB_HOST'),
+        'PORT': get_env_variable('DB_PORT'),
+        # 'NAME': 'quiz-api',
+        # 'USER': 'root',
+        # 'PASSWORD': '1234!1234',
+        # 'HOST': 'localhost',
+        # 'PORT': '',
     }
 }
 db_from_env = dj_database_url.config(conn_max_age=500)

@@ -10,6 +10,7 @@ from .models import User
 from rest_framework import generics
 from rest_framework import status
 
+
 @api_view(['GET'])
 def helloApi(request):
     return Response("hello")
