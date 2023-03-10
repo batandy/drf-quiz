@@ -20,6 +20,16 @@ class CategorySerializer(serializers.ModelSerializer):
         model=Category
         fields = ('category_name','category_id', 'quizs')
 
+class OnlyCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Category
+        fields = ('category_name','category_id')
+
+class OnlyQuizSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Quiz
+        fields = ('quiz_name', 'quiz_id')
+
 
 
 

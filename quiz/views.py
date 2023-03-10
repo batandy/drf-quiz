@@ -3,7 +3,7 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .models import Quiz, Question, Category
-from .serializers import QuizSerializer, QuestionSerializer, CategorySerializer
+from .serializers import *
 from django.http import HttpResponse
 from .serializers import UserSerializer
 from .models import User
@@ -38,19 +38,22 @@ def category_detail(request, cat_id):
         return Response(serializer.data)
     
 @api_view(['GET'])
-def only_quiz(request,quiz_id):
+def only_category(request):
     if request.method == 'GET':
-        quizzes = Quiz.objects.all()
-        serializer = QuizSerializer(quizzes, many=True)
+        categorys = Category.objects.all()
+        serializer = OnlyCategorySerializer(categorys, many=True)
+        return Response(serializer.data)
+    
+@api_view(['GET'])
+def only_quiz(request,cat_id):
+    if request.method == 'GET':
+        quizzes = Quiz.objects.filter(category_id=cat_id)
+        serializer = OnlyQuizSerializer(quizzes, many=True)
         return Response(serializer.data)
 
 
-# @api_view(['GET'])
-# def randomQuiz(request, id):
-#     totalQuizs = Quiz.objects.all()
-#     randomQuizs = random.sample(list(totalQuizs), id)
-#     serializer = QuizSerializer(randomQuizs, many=True)
-#     return Response(serializer.data)
+
+
 
 class UserCreate(generics.CreateAPIView):
     queryset = User.objects.all()
