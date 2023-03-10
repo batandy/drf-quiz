@@ -36,7 +36,7 @@ SECRET_KEY = get_env_variable('DJANGO_SECRET')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -107,6 +107,12 @@ DATABASES = {
         'PASSWORD': get_env_variable('DB_PASSWORD'),
         'HOST': get_env_variable('DB_HOST'),
         'PORT': get_env_variable('DB_PORT'),
+
+        # 'NAME': 'postgres',
+        # 'USER': 'root',
+        # 'PASSWORD': '1234!1234',
+        # 'HOST': 'svc.sel3.cloudtype.app',
+        # 'PORT': '31161',
     }
 }
 db_from_env = dj_database_url.config(conn_max_age=500)
