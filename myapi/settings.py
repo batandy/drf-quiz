@@ -100,17 +100,14 @@ WSGI_APPLICATION = 'myapi.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': get_env_variable('DATABASE'),
-        'USER': get_env_variable('DB_USER'),
-        'PASSWORD': get_env_variable('DB_PASSWORD'),
-        'HOST': get_env_variable('DB_HOST'),
-        'PORT': get_env_variable('DB_PORT'),
-        # 'NAME': 'quiz-api',
-        # 'USER': 'root',
-        # 'PASSWORD': '1234!1234',
-        # 'HOST': 'localhost',
-        # 'PORT': '',
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': get_env_variable('DATABASE'),
+        # 'USER': get_env_variable('DB_USER'),
+        # 'PASSWORD': get_env_variable('DB_PASSWORD'),
+        # 'HOST': get_env_variable('DB_HOST'),
+        # 'PORT': get_env_variable('DB_PORT'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 db_from_env = dj_database_url.config(conn_max_age=500)
