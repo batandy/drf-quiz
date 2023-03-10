@@ -2,12 +2,13 @@ import random
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .models import Quiz
-from .serializers import QuizSerializer
+from .models import Quiz, Question, Category
+from .serializers import QuizSerializer, QuestionSerializer, CategorySerializer
 from django.http import HttpResponse
 from .serializers import UserSerializer
 from .models import User
 from rest_framework import generics
+from rest_framework import status
 
 @api_view(['GET'])
 def helloApi(request):
@@ -15,14 +16,41 @@ def helloApi(request):
 
 
 @api_view(['GET'])
-def randomQuiz(request, id):
-    totalQuizs = Quiz.objects.all()
-    randomQuizs = random.sample(list(totalQuizs), id)
-    serializer = QuizSerializer(randomQuizs, many=True)
-    return Response(serializer.data)
+def quiz_detail(request, quiz_id):
+    try:
+        quiz = Quiz.objects.get(quiz_id=quiz_id)
+    except Quiz.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
-def index(request):
-    return render(request, 'index.html')
+    if request.method == 'GET':
+        serializer = QuizSerializer(quiz)
+        return Response(serializer.data)
+    
+@api_view(['GET'])
+def category_detail(request, cat_id):
+    try:
+        category= Category.objects.get(category_id=cat_id)
+    except Category.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    if request.method =='GET':
+        serializer = CategorySerializer(category)
+        return Response(serializer.data)
+    
+@api_view(['GET'])
+def only_quiz(request,quiz_id):
+    if request.method == 'GET':
+        quizzes = Quiz.objects.all()
+        serializer = QuizSerializer(quizzes, many=True)
+        return Response(serializer.data)
+
+
+# @api_view(['GET'])
+# def randomQuiz(request, id):
+#     totalQuizs = Quiz.objects.all()
+#     randomQuizs = random.sample(list(totalQuizs), id)
+#     serializer = QuizSerializer(randomQuizs, many=True)
+#     return Response(serializer.data)
 
 class UserCreate(generics.CreateAPIView):
     queryset = User.objects.all()

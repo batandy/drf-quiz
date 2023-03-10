@@ -1,13 +1,24 @@
 from django.db import models
-from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 # Create your models here.
+class Category(models.Model):
+    category_name=models.CharField(max_length=20,default='')
+    category_id=models.AutoField(primary_key=True)
+
 class Quiz(models.Model):
-    title = models.CharField(max_length=200)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='quizs')
+    quiz_name = models.CharField(max_length=20, default='')
+    quiz_id = models.AutoField(primary_key=True)
+
+class Question(models.Model):
+    quiz= models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name='questions')
+    title = models.CharField(max_length=200,default='')
     body = models.TextField()
     answer = models.IntegerField()
 
+    
+    
 
 class UserManager(BaseUserManager):
     # 일반 user 생성
