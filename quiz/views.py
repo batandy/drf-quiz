@@ -17,16 +17,17 @@ def helloApi(request):
 
 
 @api_view(['GET'])
-def quiz_detail(request, quiz_id):
+def quiz_detail(request, cat_id, quiz_id):
     try:
-        questions = Question.objects.get(quiz_id=quiz_id)
+        questions = Question.objects.filter(category_id=cat_id, quiz_id=quiz_id)
     except Quiz.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        serializer = QuestionSerializer(questions)
+        serializer = QuestionSerializer(questions, many=True)
         return Response(serializer.data)
     
+
 @api_view(['GET'])
 def category_detail(request, cat_id):
     try:
@@ -38,12 +39,14 @@ def category_detail(request, cat_id):
         serializer = CategorySerializer(category)
         return Response(serializer.data)
     
+
 @api_view(['GET'])
 def only_category(request):
     if request.method == 'GET':
         categorys = Category.objects.all()
         serializer = OnlyCategorySerializer(categorys, many=True)
         return Response(serializer.data)
+    
     
 @api_view(['GET'])
 def only_quiz(request,cat_id):

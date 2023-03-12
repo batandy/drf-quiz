@@ -12,6 +12,7 @@ class Quiz(models.Model):
     quiz_id = models.AutoField(primary_key=True)
 
 class Question(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='quiz')
     quiz= models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name='questions')
     title = models.CharField(max_length=200,default='')
     body = models.TextField()
