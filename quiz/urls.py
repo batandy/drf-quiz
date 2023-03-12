@@ -7,6 +7,7 @@ urlpatterns  =[
     path('', only_category),
     path('<int:cat_id>', only_quiz),
     path("<int:cat_id>/<int:quiz_id>/", quiz_detail),
+    path("all/", all_quizs),
     # path('cat/<int:cat_id>',category_detail),
     
     path('signup/', views.UserCreate.as_view()),

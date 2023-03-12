@@ -39,6 +39,12 @@ def category_detail(request, cat_id):
         serializer = CategorySerializer(category)
         return Response(serializer.data)
     
+@api_view(['GET'])
+def all_quizs(request):
+    if request.method == 'GET':
+        categorys = Category.objects.all()
+        serializer = CategorySerializer(categorys, many=True)
+        return Response(serializer.data)
 
 @api_view(['GET'])
 def only_category(request):
