@@ -30,6 +30,19 @@ class OnlyQuizSerializer(serializers.ModelSerializer):
         model=Quiz
         fields = ('quiz_name', 'quiz_id')
 
+class CreateQuizSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model=Quiz
+        fields = ('category', 'quiz_id' ,'quiz_name' )
+
+
+class CreateQuestionSerializer(serializers.ModelSerializer):
+    category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
+    quiz = serializers.PrimaryKeyRelatedField(queryset=Quiz.objects.all())
+    class Meta:
+        model = Question
+        fields = ('category','quiz', 'title', 'body', 'answer')
 
 
 
@@ -45,3 +58,4 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['nickname', 'email', 'name', 'password']
+
